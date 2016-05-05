@@ -9,9 +9,12 @@ import (
 	"strings"
 )
 
+const (
+	LenPacket 		= 2048
+)
 
 func main() { // Den: Лучше это сделать тестом.
-	var h ISCSIPacket
+	var h ISCSIConnection
 
 	fmt.Println("start")
 	//login packet
@@ -59,9 +62,11 @@ func main() { // Den: Лучше это сделать тестом.
 
 	buf := bytes.NewReader(pack)
 	n, err := h.ReadFrom(buf)
-	fmt.Println("n=", n, "\nerr=", err, "\nh=", h)
-	n, err = h.WriteTo(buf)
-	fmt.Println("n=", n, "\nerr=", err, "\nbuf=", buf)
+	fmt.Println("65 - n=", n, "\n65 - err=", err) // , "\n65 - h=", h)
+
+	bufw := bytes.NewBuffer(nil)
+	n, err = h.WriteTo(bufw)
+	fmt.Println("69 - n=", n, "\n69 - err=", err, "\n69 - buf=", bufw, "len(buf)=", bufw.Len())
 
 	return
 }
@@ -86,19 +91,22 @@ type LoginHeader struct {
 	CmdSN		int		// 4 bytes
 	ExpStatSN	int		// 4 bytes
 	Res2		[]byte		// 16 bytes
+	DataW		[]byte		//
 	msg		Msg
 }
 
 var _ Msg = (*LoginHeader)(nil)
 
-type ISCSIPacket struct {
+type ISCSIConnection struct {
 	LH	LoginHeader
-	DS	map[string]string		// Login parameters
+	DS	map[string]string	// Login parameters
+	DataR	[]byte			// Data read from ...
+	DataW	[]byte			// Data write to ...
 }
 
 type Msg interface {
 	ReadFrom(io.Reader) (int, error)
-	WriterTo(io.Writer) (int, error)
+	WriteTo(io.Writer) (int, error)
 //	Close(io.ReadWriteCloser) (error)
 }
 
@@ -106,7 +114,7 @@ func (p *LoginHeader) ReadFrom(r io.Reader) (int, error) {
 	buf := make([]byte, 48)
 	n, err := io.ReadFull(r, buf)
 
-	p.I		= selectBit((p.OpCode), 0x40)
+	p.I		= selectBit((buf[0]), 0x40)
 	p.OpCode 	= buf[0] & 0x3f
 	p.OpCodeSF	= buf[1]
 	p.T		= selectBit(p.OpCodeSF, 0x80)
@@ -128,7 +136,7 @@ func (p *LoginHeader) ReadFrom(r io.Reader) (int, error) {
 	return n, err
 }
 
-func (p *ISCSIPacket)ReadFrom(r io.Reader) (int, error) {
+func (p *ISCSIConnection)ReadFrom(r io.Reader) (int, error) {
 
 	n, err := p.LH.ReadFrom(r)
 
@@ -137,12 +145,13 @@ func (p *ISCSIPacket)ReadFrom(r io.Reader) (int, error) {
 
 	p.Decode(buf)
 
+
 	return n, err
 }
 
-func (p *ISCSIPacket) Decode(d []byte) error {
-	p.DS = make(map[string]string, 1)
-	arrString := strings.Split(string(d) + string("\x00"), string("\x00"))
+func (p *ISCSIConnection) Decode(d []byte) error {
+	p.DS = make(map[string]string, 0)
+	arrString := strings.Split(string(d), string("\x00"))
 	for _, element := range arrString {
 		if strings.Contains(element, "=") {
 			ar := strings.Split(element, "=")
@@ -169,7 +178,7 @@ func (p LoginHeader)String() (string) {
 			p.ExpStatSN, p.Res2)
 }
 
-func (p ISCSIPacket)String() (string) {
+func (p ISCSIConnection)String() (string) {
 	out := ""
 	for i, j := range p.DS {
 		out += " " + fmt.Sprint(i) + "=" + fmt.Sprint(j)
@@ -177,32 +186,27 @@ func (p ISCSIPacket)String() (string) {
 	return fmt.Sprintf("LoginHeader=%s, \nParam=%s", p.LH, out)
 }
 
-func (p *ISCSIPacket)WriteTo(r io.Reader) (int, error) {
-
-	buf := p.LH.MakePacket()
-
-	n, err := p.LH.WriteTo(r)
-
-	buf := make([]byte, p.LH.DataSegLen)
-	n, err = io.ReadFull(r, buf)
-
-	p.Decode(buf)
-
+func (p *ISCSIConnection)WriteTo(w io.Writer) (int, error) {
+	p.MakePacket()
+	n, err := w.Write(p.DataW)
 	return n, err
 }
 
-func (p *LoginHeader) WriteTo(w io.Writer) (int, error) {
-	buf := make([]byte, 48)
-	buf =    []byte{0x49, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x74, 0x6f, /* Initiato */
-			0x72, 0x4e, 0x61, 0x6d, 0x65, 0x3d, 0x69, 0x71, /* rName=iq */
-			0x6e, 0x2e, 0x31, 0x39, 0x39, 0x33, 0x2d, 0x30, /* n.1993-0 */
-			0x38, 0x2e, 0x6f, 0x72, 0x67, 0x2e, 0x64, 0x65, /* 8.org.de */
-			0x62, 0x69, 0x61, 0x6e, 0x3a, 0x30, 0x31, 0x3a, /* bian:01: */
-			0x31, 0x38, 0x37, 0x61, 0x39, 0x31, 0x61, 0x66, /* 187a91af */
-			0x34, 0x30, 0x00, 0x49, 0x6e, 0x69, 0x74, 0x69, /* 40.Initi */
-			0x61, 0x74, 0x6f, 0x72, 0x41, 0x6c, 0x69, 0x61}
-
-	n, err := io.Write(buf)
-
+func (p *LoginHeader)WriteTo(w io.Writer) (int, error) {
+	n, err := w.Write(p.DataW)
 	return n, err
 }
+
+func (p *ISCSIConnection)MakePacket() {
+
+
+
+	p.DataW = []byte{0x43, 0x87, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf7, /* C....... */
+			0x00, 0x02, 0x3d, 0x00, 0x00, 0x00, 0x00, 0x00, /* ..=..... */
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* ........ */
+			0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, /* ........ */
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* ........ */
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+	return
+}
+
