@@ -83,14 +83,14 @@ type LoginHeader struct {
 	VerMin		byte		// 1 byte
 	TotAHSLen	int		// 1 byte
 	DataSegLen	int		// 3 bytes
-	ISID		[]byte		// 6 bytes
-	TSIH		[]byte		// 2 bytes
-	InitTaskTag	[]byte		// 4 bytes
-	CID		[]byte		// 2 bytes
-	Res1		[]byte		// 2 bytes
+	ISID		[6]byte		// 6 bytes
+	TSIH		[2]byte		// 2 bytes
+	InitTaskTag	[4]byte		// 4 bytes
+	CID		[2]byte		// 2 bytes
+	Res1		[2]byte		// 2 bytes
 	CmdSN		int		// 4 bytes
 	ExpStatSN	int		// 4 bytes
-	Res2		[]byte		// 16 bytes
+	Res2		[16]byte	// 16 bytes
 	DataW		[]byte		//
 	msg		Msg
 }
@@ -125,14 +125,20 @@ func (p *LoginHeader) ReadFrom(r io.Reader) (int, error) {
 	p.VerMin	= buf[3]
 	p.TotAHSLen	= int(binary.BigEndian.Uint16([]byte{0, buf[4]}))
 	p.DataSegLen	= int(binary.BigEndian.Uint32(append([]byte{0}, buf[5:8]...)))
-	p.ISID		= buf[8:14]
-	p.TSIH		= buf[14:16]
-	p.InitTaskTag	= buf[16:20]
-	p.CID		= buf[20:22]
-	p.Res1		= buf[22:24]
+	_ = copy(p.ISID[:], buf[8:14])
+	_ = copy(p.TSIH[:], buf[14:16])
+	_ = copy(p.InitTaskTag[:], buf[16:20])
+	_ = copy(p.CID[:], buf[20:22])
+	_ = copy(p.Res1[:], buf[22:24])
+	_ = copy(p.Res2[:], buf[32:])
+	// p.ISID		= buf[8:14]
+	//p.TSIH		= buf[14:16]
+	//p.InitTaskTag	= buf[16:20]
+	//p.CID		= buf[20:22]
+	//p.Res1		= buf[22:24]
 	p.CmdSN		= int(binary.BigEndian.Uint32(buf[24:28]))
 	p.ExpStatSN	= int(binary.BigEndian.Uint32(buf[28:32]))
-	p.Res2		= buf[32:]
+	//p.Res2		= buf[32:]
 	return n, err
 }
 
