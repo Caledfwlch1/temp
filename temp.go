@@ -42,9 +42,14 @@ func main() {
 
 	t1 = T1{Name:"aaa", Value:10}
 	t2 = T2{Name:"bbb", Value:20}
+
 	fmt.Println("begin", t1, t2)
+
+
 	//t1.Inter.Set("ccc", 30)
-	inter(t2.Inter)
+	inter(t2)
+
+
 	fmt.Println("end", t1, t2)
 }
 
