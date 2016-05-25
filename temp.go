@@ -11,13 +11,11 @@ type Iner interface {
 type T1 struct {
 	Name string
 	Value int
-	Inter Iner
 }
 
 type T2 struct {
 	Name string
 	Value int
-	Inter Iner
 }
 
 var (
@@ -47,13 +45,13 @@ func main() {
 
 
 	//t1.Inter.Set("ccc", 30)
-	inter(t2)
+	inter(&t2)
 
 
 	fmt.Println("end", t1, t2)
 }
 
-func inter(v interface{}) {
+func inter(v Iner) {
 /*
 	switch a := v.(type) {
 		case T1:
@@ -66,6 +64,6 @@ func inter(v interface{}) {
 */
 	//v.Set("ccc", 30)
 
-	v.Inter.Set("ccc", 30)
+	v.Set("ccc", 30)
 	return
 }
