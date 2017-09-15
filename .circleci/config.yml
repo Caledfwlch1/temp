@@ -26,4 +26,4 @@ jobs:
       # specify any bash command here prefixed with `run: `
       # - run: go get -v -t -d github.com/Caledfwlch1/temp
       - run: export
-      - run: go test -v github.com/Caledfwlch1/temp/temp
+      - run: go test -v $CIRCLE_WORKING_DIRECTORY/temp
