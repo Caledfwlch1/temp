@@ -1,4 +1,4 @@
-package main
+package temp
 
 import (
 	"fmt"
@@ -34,7 +34,7 @@ func (p *T2)Set(n string, i int){
 	p.Value = i
 }
 
-func main() {
+func Tmp() {
 	var t1 T1
 	var t2 T2
 
