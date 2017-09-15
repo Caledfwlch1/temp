@@ -43,8 +43,6 @@ func main() {
 
 	fmt.Println("begin", t1, t2)
 
-
-	//t1.Inter.Set("ccc", 30)
 	inter(&t2)
 
 
@@ -52,18 +50,6 @@ func main() {
 }
 
 func inter(v Iner) {
-/*
-	switch a := v.(type) {
-		case T1:
-			a.Set("T1", 30)
-			fmt.Println("Type T1 ", a)
-		case T2:
-			a.Set("T2", 30)
-			fmt.Println("Type T2 ", a)
-	}
-*/
-	//v.Set("ccc", 30)
-
 	v.Set("ccc", 30)
 	return
 }
