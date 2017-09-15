@@ -25,7 +25,7 @@ jobs:
 
       # specify any bash command here prefixed with `run: `
       # - run: go get -v -t -d github.com/Caledfwlch1/temp
-      - run: export
+
      # - run: go test -v github.com/Caledfwlch1/temp/temp
       - run:
           name: Run test
@@ -34,3 +34,35 @@ jobs:
           command: |
             export
             go test -v $PAKETS/temp
+  bigsleep:
+    - run:
+        name: Big sleep!
+        command: sleep 30
+
+  shortsleep:
+    - run:
+        name: Short sleep!
+        command: sleep 30
+
+  test:
+    - run:
+        name: Run test
+        environment:
+        PAKETS: github.com/Caledfwlch1/temp
+        command: go test -v $PAKETS/temp
+
+workflows:
+  version: 2
+  Start_build:
+    jobs:
+      - build
+      - shortsleep
+        requires:
+          - build
+      - test
+        requires:
+          - shortsleep
+          - bigsleep
+      - bigsleep
+        requires:
+          - build
