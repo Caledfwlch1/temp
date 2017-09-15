@@ -27,7 +27,7 @@ jobs:
           command: go test -v $PAKETS/temp
 workflows:
   version: 2
-  Start_build:
+  start_build:
     jobs:
       - build
       - shortsleep
