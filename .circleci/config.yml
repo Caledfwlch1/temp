@@ -6,30 +6,25 @@ jobs:
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
-
   bigsleep:
     steps:
       - run:
           name: Big sleep!
           command: sleep 30
-
   shortsleep:
     steps:
       - run:
           name: Short sleep!
           command: sleep 30
-
   test:
     docker:
       - image: circleci/golang:1.8
-
     steps:
       - run:
           name: Run test
           environment:
           PAKETS: github.com/Caledfwlch1/temp
           command: go test -v $PAKETS/temp
-
 workflows:
   version: 2
   Start_build:
