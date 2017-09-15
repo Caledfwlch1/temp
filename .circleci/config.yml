@@ -7,6 +7,8 @@ jobs:
     docker:
       # specify the version
       - image: circleci/golang:1.8
+        environment:
+          GOPATH: /go/src/
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -23,5 +25,4 @@ jobs:
 
       # specify any bash command here prefixed with `run: `
       # - run: go get -v -t -d github.com/Caledfwlch1/temp
-      - run: export GOPATH=/go/src/
       - run: go test -v
