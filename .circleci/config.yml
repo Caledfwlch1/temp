@@ -27,30 +27,29 @@ jobs:
       # - run: go get -v -t -d github.com/Caledfwlch1/temp
 
      # - run: go test -v github.com/Caledfwlch1/temp/temp
+
+  bigsleep:
+    steps:
+      - run:
+          name: Big sleep!
+          command: sleep 30
+
+  shortsleep:
+    steps:
+      - run:
+          name: Short sleep!
+          command: sleep 30
+
+  test:
+    docker:
+      - image: circleci/golang:1.8
+
+    steps:
       - run:
           name: Run test
           environment:
-            PAKETS: github.com/Caledfwlch1/temp
-          command: |
-            export
-            go test -v $PAKETS/temp
-
-  bigsleep:
-    - run:
-        name: Big sleep!
-        command: sleep 30
-
-  shortsleep:
-    - run:
-        name: Short sleep!
-        command: sleep 30
-
-  test:
-    - run:
-        name: Run test
-        environment:
-        PAKETS: github.com/Caledfwlch1/temp
-        command: go test -v $PAKETS/temp
+          PAKETS: github.com/Caledfwlch1/temp
+          command: go test -v $PAKETS/temp
 
 workflows:
   version: 2
