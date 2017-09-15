@@ -12,7 +12,7 @@ jobs:
     steps:
       - run:
           name: Big sleep!
-          command: sleep 30
+          command: sleep 60
   shortsleep:
     docker:
       - image: circleci/golang:1.8
@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Run test
           environment:
-          PAKETS: github.com/Caledfwlch1/temp
+            PAKETS: github.com/Caledfwlch1/temp
           command: go test -v $PAKETS/temp
 workflows:
   version: 2
