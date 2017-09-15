@@ -31,4 +31,6 @@ jobs:
           name: Run test
           environment:
             PAKETS: github.com/Caledfwlch1/temp
-          command: go test -v temp
+          command: |
+            export
+            go test -v $PAKETS/temp
