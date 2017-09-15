@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestDisk(t *testing.T) {
+func TestInter(t *testing.T) {
 
 	t1 := T1{Name: "aaa", Value: 10}
 	//t2 := T1{Name:"aaa", Value:10}
