@@ -23,4 +23,5 @@ jobs:
 
       # specify any bash command here prefixed with `run: `
       # - run: go get -v -t -d github.com/Caledfwlch1/temp
+      - run: export GOPATH=/go/src/
       - run: go test -v
