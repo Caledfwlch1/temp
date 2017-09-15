@@ -7,11 +7,15 @@ jobs:
     steps:
       - checkout
   bigsleep:
+    docker:
+      - image: circleci/golang:1.8
     steps:
       - run:
           name: Big sleep!
           command: sleep 30
   shortsleep:
+    docker:
+      - image: circleci/golang:1.8
     steps:
       - run:
           name: Short sleep!
