@@ -30,13 +30,13 @@ workflows:
   start_build:
     jobs:
       - build
-      - shortsleep
-        requires:
-          - build
-      - test
-        requires:
-          - shortsleep
-          - bigsleep
-      - bigsleep
-        requires:
-          - build
+      - shortsleep:
+          requires:
+            - build
+      - test:
+          requires:
+            - shortsleep
+            - bigsleep
+      - bigsleep:
+          requires:
+            - build
