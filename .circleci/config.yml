@@ -26,4 +26,9 @@ jobs:
       # specify any bash command here prefixed with `run: `
       # - run: go get -v -t -d github.com/Caledfwlch1/temp
       - run: export
-      - run: go test -v github.com/Caledfwlch1/temp/temp
+     # - run: go test -v github.com/Caledfwlch1/temp/temp
+      - run:
+          name: Run test
+          environment:
+            PAKETS: github.com/Caledfwlch1/temp
+          command: go test -v temp
