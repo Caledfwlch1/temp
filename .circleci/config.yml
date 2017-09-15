@@ -27,8 +27,8 @@ jobs:
       - run:
           name: Run test
           environment:
-            PAKETS: github.com/Caledfwlch1/temp
-          command: go test -v $PAKETS/temp
+            #PAKETS: github.com/Caledfwlch1/temp
+          command: go test -v github.com/Caledfwlch1/temp/temp
 workflows:
   version: 2
   start_build:
