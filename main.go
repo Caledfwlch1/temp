@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/temp/temp"
+	"github.com/Caledfwlch1/temp/temp"
 )
 
 func main() {
