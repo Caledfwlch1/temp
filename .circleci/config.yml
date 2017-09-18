@@ -26,10 +26,10 @@ jobs:
     steps:
       - run:
           name: Environment
-          environment:
-            GOPATH: /go
+          #environment:
+            #GOPATH: /go
             #:/home/circleci/project
-            GOROOT: /usr/local/go
+            #GOROOT: /usr/local/go
           command: |
             echo "export1"
             export
