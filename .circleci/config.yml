@@ -28,7 +28,12 @@ jobs:
           name: Environment
           environment:
             GOPATH: /go:/home/circleci/project
-          command: export
+            GOROOT: /go
+          command: |
+            /go/bin/go version
+            /usr/local/go/bin/go version
+            export
+            ll /home/circleci/project
       - run:
           name: Run test
           #environment:
