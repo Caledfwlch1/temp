@@ -25,8 +25,11 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - run:
+          name: Environment
+          command: export
+      - run:
           name: Run test
-          environment:
+          #environment:
             #PAKETS: github.com/Caledfwlch1/temp
           command: go test -v github.com/Caledfwlch1/temp/temp
 workflows:
