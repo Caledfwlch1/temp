@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Environment
           environment:
-            GOPATH: /go:$CIRCLE_WORKING_DIRECTORY
+            GOPATH: /go:/home/circleci/project
           command: export
       - run:
           name: Run test
