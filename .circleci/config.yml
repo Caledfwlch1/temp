@@ -27,7 +27,8 @@ jobs:
       - run:
           name: Environment
           environment:
-            GOPATH: /go:/home/circleci/project
+            GOPATH: /go
+            #:/home/circleci/project
             GOROOT: /usr/local/go
           command: |
             echo "ls -l /go/bin"
