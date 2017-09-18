@@ -46,6 +46,10 @@ jobs:
           command: |
             go get github.com/Caledfwlch1/temp/temp
             go test -v github.com/Caledfwlch1/temp/temp
+            echo "/go"
+            ls -l /go
+            echo "/go/src"
+            ls -l /go/src
 workflows:
   version: 2
   start_build:
