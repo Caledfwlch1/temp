@@ -28,11 +28,15 @@ jobs:
           name: Environment
           environment:
             GOPATH: /go:/home/circleci/project
-            GOROOT: /go
+            GOROOT: /usr/local/go
           command: |
-            ls -l /go
+            echo "ls -l /go/bin"
+            ls -l /go/bin
+            echo "/usr/local/go/bin/go version"
             /usr/local/go/bin/go version
+            echo "export"
             export
+            echo "ll /home/circleci/project"
             ll /home/circleci/project
       - run:
           name: Run test
