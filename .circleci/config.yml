@@ -3,8 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.8
-        environment:
-          GOPATH: /go:$CIRCLE_WORKING_DIRECTORY
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
@@ -28,6 +26,8 @@ jobs:
     steps:
       - run:
           name: Environment
+          environment:
+            GOPATH: /go:$CIRCLE_WORKING_DIRECTORY
           command: export
       - run:
           name: Run test
