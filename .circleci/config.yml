@@ -37,7 +37,7 @@ jobs:
             echo "export"
             export
             echo "ll /home/circleci/project"
-            ll /home/circleci/project
+            ls -l /home/circleci/project
       - run:
           name: Run test
           #environment:
