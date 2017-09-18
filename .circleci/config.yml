@@ -30,7 +30,7 @@ jobs:
             GOPATH: /go:/home/circleci/project
             GOROOT: /go
           command: |
-            /go/bin/go version
+            ls -l /go
             /usr/local/go/bin/go version
             export
             ll /home/circleci/project
