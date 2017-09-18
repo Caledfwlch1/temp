@@ -31,14 +31,8 @@ jobs:
             #:/home/circleci/project
             GOROOT: /usr/local/go
           command: |
-            echo "ls -l /go/bin"
-            ls -l /go/bin
-            echo "/usr/local/go/bin/go version"
-            /usr/local/go/bin/go version
-            echo "export"
+            echo "export1"
             export
-            echo "ll /home/circleci/project"
-            ls -l /home/circleci/project
       - run:
           name: Run test
           #environment:
@@ -46,10 +40,8 @@ jobs:
           command: |
             go get github.com/Caledfwlch1/temp/temp
             go test -v github.com/Caledfwlch1/temp/temp
-            echo "/go"
-            ls -l /go
-            echo "/go/src"
-            ls -l /go/src
+            echo "export2"
+            export
 workflows:
   version: 2
   start_build:
