@@ -33,8 +33,6 @@ jobs:
             export
       - run:
           name: Run test
-          #environment:
-            #PAKETS: github.com/Caledfwlch1/temp
           command: |
             go get github.com/Caledfwlch1/temp/temp
             go test -v github.com/Caledfwlch1/temp/temp
