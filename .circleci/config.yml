@@ -6,6 +6,9 @@ jobs:
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
+      - run:
+          name: Get package
+          command: go get github.com/Caledfwlch1/temp/runcurl
   bigsleep:
     docker:
       - image: circleci/golang:1.8
