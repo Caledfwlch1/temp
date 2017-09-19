@@ -6,18 +6,15 @@ jobs:
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
-      - run:
-          name: Get package
-          command: |
-            go get github.com/Caledfwlch1/temp
-            ls -l /go/src/github.com/Caledfwlch1/temp
   bigsleep:
     docker:
       - image: circleci/golang:1.8
     steps:
       - run:
           name: Big sleep!
-          command: go test -v github.com/Caledfwlch1/temp/runcurl
+          command:  |
+            go get github.com/Caledfwlch1/temp/runcurl
+            go test -v github.com/Caledfwlch1/temp/runcurl
   shortsleep:
     docker:
       - image: circleci/golang:1.8
