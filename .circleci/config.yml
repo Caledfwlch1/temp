@@ -3,8 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.8
-        environment:
-          GOROOT: /usr/local/go
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
@@ -14,14 +12,15 @@ jobs:
     steps:
       - run:
           name: Big sleep!
-          command: sleep 5
+          #command: go run runcurl.go -u="http://35.190.167.185/custom?branch=dev&commit=6c910dffc96d6a4d0c5a32fc6f53bc4f9d050570&roles=builds&wait=true"
+          command: sleep 60
   shortsleep:
     docker:
       - image: circleci/golang:1.8
     steps:
       - run:
           name: Short sleep!
-          command: sleep 5
+          command: sleep 60
   test:
     docker:
       - image: circleci/golang:1.8
