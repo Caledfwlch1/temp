@@ -1,7 +1,6 @@
 package runcurl
 
 import (
-	"flag"
 	"net/http"
 	"log"
 )
