@@ -37,6 +37,6 @@ func printResp(r io.ReadCloser) {
 	//	}
 	//}
 	l, _ := ioutil.ReadAll(r)
-	log.Println(l)
+	log.Printf("%s", l)
 	return
 }
