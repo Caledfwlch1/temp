@@ -13,7 +13,9 @@ jobs:
       - run:
           name: Builds!
           command:  |
+            export | grep GO
             go get github.com/Caledfwlch1/temp
+            ls -l /go/src/github.com/Caledfwlch1/temp/runcurl
             go test -v /go/src/github.com/Caledfwlch1/temp/runcurl/builds_test.go
   tcurlst:
     docker:
@@ -23,7 +25,7 @@ jobs:
           name: Curlst!
           command:  |
             go get github.com/Caledfwlch1/temp/runcurl
-            go test -v github.com/Caledfwlch1/temp/runcurl/curlst_test.go
+            go test -v /go/src/github.com/Caledfwlch1/temp/runcurl/curlst_test.go
   tthreshold:
     docker:
       - image: circleci/golang:1.8
@@ -32,7 +34,7 @@ jobs:
           name: Threshold!
           command:  |
             go get github.com/Caledfwlch1/temp/runcurl
-            go test -v github.com/Caledfwlch1/temp/runcurl/threshold_test.go
+            go test -v /go/src/github.com/Caledfwlch1/temp/runcurl/threshold_test.go
   tfailed_nodes:
     docker:
       - image: circleci/golang:1.8
@@ -41,7 +43,7 @@ jobs:
           name: Failed_nodes!
           command:  |
             go get github.com/Caledfwlch1/temp/runcurl
-            go test -v github.com/Caledfwlch1/temp/runcurl/failed_nodes_test.go
+            go test -v /go/src/github.com/Caledfwlch1/temp/runcurl/failed_nodes_test.go
   tdbdelays:
     docker:
       - image: circleci/golang:1.8
@@ -50,7 +52,7 @@ jobs:
           name: Dbdelays!
           command:  |
             go get github.com/Caledfwlch1/temp/runcurl
-            go test -v github.com/Caledfwlch1/temp/runcurl/dbdelays_test.go
+            go test -v /go/src/github.com/Caledfwlch1/temp/runcurl/dbdelays_test.go
   test:
     docker:
       - image: circleci/golang:1.8
