@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Builds!
           command:  |
-            go get github.com/Caledfwlch1/temp/runcurl
+            go get github.com/Caledfwlch1/temp
             go test -v github.com/Caledfwlch1/temp/runcurl/builds_test.go
   tcurlst:
     docker:
