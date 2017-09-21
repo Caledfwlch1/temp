@@ -14,8 +14,7 @@ jobs:
           name: Builds!
           command:  |
             go get github.com/Caledfwlch1/temp
-            pwd
-            go test -v github.com/Caledfwlch1/temp/runcurl/builds_test.go
+            go test -v /go/src/github.com/Caledfwlch1/temp/runcurl/builds_test.go
   tcurlst:
     docker:
       - image: circleci/golang:1.8
