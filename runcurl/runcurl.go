@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"log"
 	"io"
-	"io/ioutil"
+	//"io/ioutil"
 )
 
 
@@ -28,15 +28,15 @@ func RunCurl(getString string) {
 }
 
 func printResp(r io.ReadCloser) {
-	//p := make([]byte, 10 * 1024)
-	//for {
-	//	l, err := r.Read(p)
-	//	log.Println(l)
-	//	if err != nil {
-	//		break
-	//	}
-	//}
-	l, _ := ioutil.ReadAll(r)
-	log.Printf("%s", l)
+	p := make([]byte, 10 * 1024)
+	for {
+		l, err := r.Read(p)
+		log.Println(l)
+		if err != nil {
+			break
+		}
+	}
+	//l, _ := ioutil.ReadAll(r)
+	//log.Printf("%s", l)
 	return
 }

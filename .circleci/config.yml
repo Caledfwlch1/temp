@@ -6,22 +6,51 @@ jobs:
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
-  bigsleep:
+  tbuilds:
     docker:
       - image: circleci/golang:1.8
     steps:
       - run:
-          name: Big sleep!
+          name: Builds!
           command:  |
             go get github.com/Caledfwlch1/temp/runcurl
-            go test -v github.com/Caledfwlch1/temp/runcurl
-  shortsleep:
+            go test -v github.com/Caledfwlch1/temp/runcurl/builds_test.go
+  tcurlst:
     docker:
       - image: circleci/golang:1.8
     steps:
       - run:
-          name: Short sleep!
-          command: sleep 60
+          name: Curlst!
+          command:  |
+            go get github.com/Caledfwlch1/temp/runcurl
+            go test -v github.com/Caledfwlch1/temp/runcurl/curlst_test.go
+  tthreshold:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - run:
+          name: Threshold!
+          command:  |
+            go get github.com/Caledfwlch1/temp/runcurl
+            go test -v github.com/Caledfwlch1/temp/runcurl/threshold_test.go
+  tfailed_nodes:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - run:
+          name: Failed_nodes!
+          command:  |
+            go get github.com/Caledfwlch1/temp/runcurl
+            go test -v github.com/Caledfwlch1/temp/runcurl/failed_nodes_test.go
+  tdbdelays:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - run:
+          name: Dbdelays!
+          command:  |
+            go get github.com/Caledfwlch1/temp/runcurl
+            go test -v github.com/Caledfwlch1/temp/runcurl/dbdelays_test.go
   test:
     docker:
       - image: circleci/golang:1.8
@@ -43,13 +72,25 @@ workflows:
   start_build:
     jobs:
       - build
-      - shortsleep:
+      - tbuilds:
+          requires:
+            - build
+      - tcurlst:
+          requires:
+            - build
+      - tthreshold:
+          requires:
+            - build
+      - tfailed_nodes:
+          requires:
+            - build
+      - tdbdelays:
           requires:
             - build
       - test:
           requires:
-            - shortsleep
-            - bigsleep
-      - bigsleep:
-          requires:
-            - build
+            - tbuilds
+            - tcurlst
+            - tthreshold
+            - tfailed_nodes
+            - tdbdelays
