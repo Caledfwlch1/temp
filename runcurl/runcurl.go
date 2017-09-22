@@ -13,15 +13,15 @@ func RunCurl(getString string) {
 	resp, err := http.Get(getString)
 
 	if err != nil {
-		log.Println(err)
-		return
-		//log.Fatalln(err)
+		//log.Println(err)
+		//return
+		log.Fatalln(err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
 		printResp(resp.Body)
-		//log.Fatalln(resp.Status)
+		log.Fatalln(resp.Status)
 	}
 
 	log.Println(resp.Status)
