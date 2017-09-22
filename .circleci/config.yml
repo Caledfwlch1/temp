@@ -6,7 +6,7 @@ jobs:
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
-      - run: git clone https://github.com/Caledfwlch1/temp.git
+      #- run: git clone https://github.com/Caledfwlch1/temp.git
   tbuilds:
     docker:
       - image: circleci/golang:1.8
