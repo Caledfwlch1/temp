@@ -6,6 +6,7 @@ jobs:
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
+      - run: go get github.com/Caledfwlch1/temp
   tbuilds:
     docker:
       - image: circleci/golang:1.8
@@ -13,7 +14,7 @@ jobs:
       - run:
           name: Builds!
           command:  |
-            go get github.com/Caledfwlch1/temp
+            #go get github.com/Caledfwlch1/temp
             go test github.com/Caledfwlch1/temp/runcurl -run TestBuilds
   tcurlst:
     docker:
@@ -21,8 +22,9 @@ jobs:
     steps:
       - run:
           name: Curlst!
+          timeout: 1000
           command:  |
-            go get github.com/Caledfwlch1/temp/runcurl
+            #go get github.com/Caledfwlch1/temp/runcurl
             go test github.com/Caledfwlch1/temp/runcurl -run TestCurlst
   tthreshold:
     docker:
@@ -31,7 +33,7 @@ jobs:
       - run:
           name: Threshold!
           command:  |
-            go get github.com/Caledfwlch1/temp/runcurl
+            #go get github.com/Caledfwlch1/temp/runcurl
             go test github.com/Caledfwlch1/temp/runcurl -run TestThreshold
   tfailed_nodes:
     docker:
@@ -39,8 +41,9 @@ jobs:
     steps:
       - run:
           name: Failed_nodes!
+          timeout: 1000
           command:  |
-            go get github.com/Caledfwlch1/temp/runcurl
+            #go get github.com/Caledfwlch1/temp/runcurl
             go test github.com/Caledfwlch1/temp/runcurl -run TestFailed_nodes
   tdbdelays:
     docker:
@@ -49,7 +52,7 @@ jobs:
       - run:
           name: Dbdelays!
           command:  |
-            go get github.com/Caledfwlch1/temp/runcurl
+            #go get github.com/Caledfwlch1/temp/runcurl
             go test github.com/Caledfwlch1/temp/runcurl -run TestDbdelays
   test:
     docker:
@@ -63,7 +66,7 @@ jobs:
       - run:
           name: Run test
           command: |
-            go get github.com/Caledfwlch1/temp/temp
+            #go get github.com/Caledfwlch1/temp/temp
             go test -v github.com/Caledfwlch1/temp/temp
             echo "export2"
             export
