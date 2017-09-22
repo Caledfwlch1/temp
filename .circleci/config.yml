@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Builds!
           environment:
-            GOPATH: $GOPATH:/go/src/github.com/Caledfwlch1/temp/
+            GOPATH: /go/:/go/src/github.com/Caledfwlch1/temp/
           command:  |
             export | grep GO
             go get github.com/Caledfwlch1/temp
