@@ -6,6 +6,7 @@ jobs:
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
+      - run: ls -l /go/src/github.com/Caledfwlch1/temp
       #- run: git clone https://github.com/Caledfwlch1/temp.git
   tbuilds:
     docker:
@@ -14,6 +15,7 @@ jobs:
       - run:
           name: Builds!
           command:  |
+            ls -l /go/src/github.com/Caledfwlch1/temp
             #go get github.com/Caledfwlch1/temp
             go test github.com/Caledfwlch1/temp/runcurl -run TestBuilds
   tcurlst:
@@ -78,22 +80,22 @@ workflows:
       - tbuilds:
           requires:
             - build
-      - tcurlst:
-          requires:
-            - build
-      - tthreshold:
-          requires:
-            - build
-      - tfailed_nodes:
-          requires:
-            - build
-      - tdbdelays:
-          requires:
-            - build
+#      - tcurlst:
+#          requires:
+#            - build
+#      - tthreshold:
+#          requires:
+#            - build
+#      - tfailed_nodes:
+#          requires:
+#            - build
+#      - tdbdelays:
+#          requires:
+#            - build
       - test:
           requires:
             - tbuilds
-            - tcurlst
-            - tthreshold
-            - tfailed_nodes
-            - tdbdelays
+#            - tcurlst
+#            - tthreshold
+#            - tfailed_nodes
+#            - tdbdelays
