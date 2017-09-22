@@ -24,7 +24,7 @@ jobs:
           name: Curlst!
           timeout: 1000
           command:  |
-            #go get github.com/Caledfwlch1/temp/runcurl
+            go get github.com/Caledfwlch1/temp/runcurl
             go test github.com/Caledfwlch1/temp/runcurl -run TestCurlst
   tthreshold:
     docker:
@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Threshold!
           command:  |
-            #go get github.com/Caledfwlch1/temp/runcurl
+            go get github.com/Caledfwlch1/temp/runcurl
             go test github.com/Caledfwlch1/temp/runcurl -run TestThreshold
   tfailed_nodes:
     docker:
@@ -43,8 +43,8 @@ jobs:
           name: Failed_nodes!
           timeout: 1000
           command:  |
-            #go get github.com/Caledfwlch1/temp/runcurl
-            go test github.com/Caledfwlch1/temp/runcurl -run TestFailed_nodes
+            go get github.com/Caledfwlch1/temp2/run2
+            go test github.com/Caledfwlch1/temp/run2 -run TestFailed_nodes
   tdbdelays:
     docker:
       - image: circleci/golang:1.8
@@ -52,8 +52,8 @@ jobs:
       - run:
           name: Dbdelays!
           command:  |
-            #go get github.com/Caledfwlch1/temp/runcurl
-            go test github.com/Caledfwlch1/temp/runcurl -run TestDbdelays
+            go get github.com/Caledfwlch1/temp/run2
+            go test github.com/Caledfwlch1/temp/run2 -run TestDbdelays
   test:
     docker:
       - image: circleci/golang:1.8
@@ -66,10 +66,8 @@ jobs:
       - run:
           name: Run test
           command: |
-            #go get github.com/Caledfwlch1/temp/temp
+            go get github.com/Caledfwlch1/temp/temp
             go test -v github.com/Caledfwlch1/temp/temp
-            echo "export2"
-            export
 workflows:
   version: 2
   start_build:
@@ -78,22 +76,22 @@ workflows:
       - tbuilds:
           requires:
             - build
-#      - tcurlst:
-#          requires:
-#            - build
-#      - tthreshold:
-#          requires:
-#            - build
-#      - tfailed_nodes:
-#          requires:
-#            - build
-#      - tdbdelays:
-#          requires:
-#            - build
+      - tcurlst:
+          requires:
+            - build
+      - tthreshold:
+          requires:
+            - build
+      - tfailed_nodes:
+          requires:
+            - build
+      - tdbdelays:
+          requires:
+            - build
       - test:
           requires:
             - tbuilds
-#            - tcurlst
-#            - tthreshold
-#            - tfailed_nodes
-#            - tdbdelays
+            - tcurlst
+            - tthreshold
+            - tfailed_nodes
+            - tdbdelays
