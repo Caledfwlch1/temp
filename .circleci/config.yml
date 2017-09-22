@@ -12,7 +12,7 @@ jobs:
 #    docker:
 #      - image: circleci/golang:1.8
     machine:
-      - image: circleci/golang:1.8
+      image: circleci/golang:1.8
     steps:
       - run:
           name: Builds!
