@@ -19,7 +19,7 @@ func RunCurl(getString string) {
 
 	if resp.StatusCode != 200 {
 		printResp(resp.Body)
-		log.Fatalln(resp.Status)
+		//log.Fatalln(resp.Status)
 	}
 
 	log.Println(resp.Status)
