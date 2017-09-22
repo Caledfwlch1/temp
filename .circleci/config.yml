@@ -9,8 +9,8 @@ jobs:
       - run: ls -l /go/src/github.com/Caledfwlch1/temp
       #- run: git clone https://github.com/Caledfwlch1/temp.git
   tbuilds:
-    docker:
-      - image: circleci/golang:1.8
+#    docker:
+#      - image: circleci/golang:1.8
     steps:
       - run:
           name: Builds!
