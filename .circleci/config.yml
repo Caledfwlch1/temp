@@ -43,8 +43,8 @@ jobs:
           name: Failed_nodes!
           timeout: 1000
           command:  |
-            go get github.com/Caledfwlch1/temp2/run2
-            go test github.com/Caledfwlch1/temp/run2 -run TestFailed_nodes
+            go get github.com/Caledfwlch1/temp2
+            go test github.com/Caledfwlch1/temp2/run2 -run TestFailed_nodes
   tdbdelays:
     docker:
       - image: circleci/golang:1.8
@@ -52,8 +52,8 @@ jobs:
       - run:
           name: Dbdelays!
           command:  |
-            go get github.com/Caledfwlch1/temp/run2
-            go test github.com/Caledfwlch1/temp/run2 -run TestDbdelays
+            go get github.com/Caledfwlch1/temp2
+            go test github.com/Caledfwlch1/temp2/run2 -run TestDbdelays
   test:
     docker:
       - image: circleci/golang:1.8
