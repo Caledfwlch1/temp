@@ -13,7 +13,9 @@ func RunCurl(getString string) {
 	resp, err := http.Get(getString)
 
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		return
+		//log.Fatalln(err)
 	}
 	defer resp.Body.Close()
 
