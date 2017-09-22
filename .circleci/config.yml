@@ -6,19 +6,15 @@ jobs:
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
       - checkout
-      - run: ls -l /go/src/github.com/Caledfwlch1/temp
       #- run: git clone https://github.com/Caledfwlch1/temp.git
   tbuilds:
-#    docker:
-#      - image: circleci/golang:1.8
-    machine:
-      image: circleci/golang:1.8
+    docker:
+      - image: circleci/golang:1.8
     steps:
       - run:
           name: Builds!
           command:  |
-            ls -l /go/src/github.com/Caledfwlch1/temp
-            #go get github.com/Caledfwlch1/temp
+            go get github.com/Caledfwlch1/temp
             go test github.com/Caledfwlch1/temp/runcurl -run TestBuilds
   tcurlst:
     docker:
