@@ -12,10 +12,13 @@ jobs:
     steps:
       - run:
           name: Builds!
+          environment:
+            GOPATH: $GOPATH:/go/src/github.com/Caledfwlch1/temp/
           command:  |
             export | grep GO
             go get github.com/Caledfwlch1/temp
             ls -l /go/src/github.com/Caledfwlch1/temp/runcurl
+            export | grep GO
             go test -v /go/src/github.com/Caledfwlch1/temp/runcurl/builds_test.go
   tcurlst:
     docker:
