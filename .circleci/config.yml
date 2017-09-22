@@ -5,7 +5,7 @@ jobs:
       - image: circleci/golang:1.8
     working_directory: /go/src/github.com/Caledfwlch1/temp
     steps:
-      - run: go get github.com/Caledfwlch1/temp
+      - run: go get github.com/Caledfwlch1/temp/...
       - checkout
   tbuilds:
     docker:
