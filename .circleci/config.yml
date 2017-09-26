@@ -91,7 +91,7 @@ workflows:
       - test:
           requires:
             - tbuilds
-#            - tcurlst
             - tthreshold
             - tfailed_nodes
             - tdbdelays
+#            - tcurlst
