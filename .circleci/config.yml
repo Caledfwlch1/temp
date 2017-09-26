@@ -41,7 +41,7 @@ jobs:
     steps:
       - run:
           name: Failed_nodes!
-          no_output_timeout: 20m
+          no_output_timeout: 900s
           command:  |
             go get github.com/Caledfwlch1/temp2
             go test github.com/Caledfwlch1/temp2/run2 -run TestFailed_nodes
